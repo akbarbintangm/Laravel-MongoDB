@@ -7,79 +7,52 @@ use Illuminate\Http\Request;
 
 class PackageController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        //
+        $packages = Package::all();
+
+        return json_encode($packages);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
+    public function show($id)
     {
-        //
+        $package = Package::find($id);
+        if (! $package) {
+            return json_encode(['message' => 'Package not found']);
+        }
+
+        return json_encode($package);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
-        //
+        $package = new Package();
+        $package->fill($request->all());
+        $package->save();
+
+        return json_encode($package, 201, [], JSON_UNESCAPED_UNICODE);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Package $package)
+    public function update(Request $request, $id)
     {
-        //
+        $package = Package::find($id);
+        if (! $package) {
+            return json_encode(['message' => 'Package not found']);
+        }
+        $package->fill($request->all());
+        $package->save();
+
+        return json_encode($package);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Package $package)
+    public function destroy($id)
     {
-        //
-    }
+        $package = Package::find($id);
+        if (! $package) {
+            return json_encode(['message' => 'Package not found']);
+        }
+        $package->delete();
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Package $package)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Package  $package
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Package $package)
-    {
-        //
+        return json_encode(['message' => 'Package deleted']);
     }
 }

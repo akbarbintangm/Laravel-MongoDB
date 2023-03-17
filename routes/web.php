@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PackageController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+// Route::get('/package', [PackageController::class, 'index']);
+// Route::get('/package/{id}', [PackageController::class, 'show']);
+// Route::post('/package', [PackageController::class, 'store']);
+// Route::put('/package/{id}', [PackageController::class, 'update']);
+// Route::patch('/package/{id}', [PackageController::class, 'update']);
+// Route::delete('/package/{id}', [PackageController::class, 'destroy']);

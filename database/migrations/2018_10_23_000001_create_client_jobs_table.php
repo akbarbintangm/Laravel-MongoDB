@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateClientJobsTable extends Migration
 {
-
     /**
      * Run the migrations.
      *
